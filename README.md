@@ -9,6 +9,7 @@ Learners can launch a full JupyterLab in their browser and run the notebooks und
 - `lite/content/02_dbscan_sklearn.ipynb` — basic clustering (DBSCAN)
 - `lite/content/data/points_small.npz` — tiny synthetic point cloud
 
+
 ## Run locally (quickest)
 1. Start a simple server from the repo root (any static server works). For example with Python:
 
