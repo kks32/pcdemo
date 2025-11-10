@@ -1,0 +1,40 @@
+name: Deploy JupyterLite to GitHub Pages
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install jupyterlite
+        run: |
+          python -m pip install --upgrade pip
+          pip install jupyterlite==0.4.0 jupyterlab
+
+      - name: Build JupyterLite site
+        run: |
+          jupyter lite build --contents ./lite/content --output-dir ./_site
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./_site
+
+      - name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@v4
